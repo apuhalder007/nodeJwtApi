@@ -9,7 +9,7 @@ userRoutes.get('/', (req, res) => {
     });
 });
 
-userRoutes.post('/cerate', (req, res) => {
+userRoutes.post('/create', (req, res) => {
     if (req.body.name && req.body.password && req.body.email, req.body.admin) {
         var newUser = new user({
             name: req.body.name,
@@ -21,7 +21,7 @@ userRoutes.post('/cerate', (req, res) => {
             if (err) throw err;
             res.json({
                 success: true,
-                message: "New user creation successful!"
+                message: "New user created successfuly!"
             })
         });
     }

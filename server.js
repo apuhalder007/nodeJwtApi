@@ -8,6 +8,8 @@ const morgan = require("morgan");
 const config = require("./config");
 const postRoutes = require("./route/post");
 const userRoutes = require("./route/user");
+const user = require("./model/user");
+
 app.use(bodyParser.urlencoded({extented: false}));
 app.use(bodyParser.json());
 app.use(morgan("dev"));
@@ -15,7 +17,7 @@ app.set("jwtSecrets", config.secret);
 mongoose.connect(config.database);
 
 app.use((req, res, next) => {
-    if (req.path == "/authenticate") return next();
+    if (req.path == "/authenticate" || req.path == "/user/create") return next();
     const token = req.body.token || req.param.token || req.headers['x-access-token'];
     if (token) {
         jwt.verify(token, app.get("jwtSecrets"), (err, decoded)=>{
